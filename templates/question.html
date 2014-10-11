@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block head %}
+	{{ super() }}
+	<style>
+		#question_table {
+			width: 100%;
+		}
+		.left_col button {
+			float: left;
+		}
+		.right_col button {
+			float: right;
+		}
+		.middle_col {
+			font-size: 300%;
+			font-weight: bold;
+			width: 100px;
+			text-align: center;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+<h2>Question {{question_num|e}} of {{total_questions}}</h2>
+<form action='{{form_action}}' method='GET'>
+	<table id='question_table'>
+		<tr>
+			<td class='left_col'>
+				<div class='stats'>
+					<dl>
+						{% for key in statkeys %}
+						<dt>{{ key|e }}</dt>
+						<dd>{{ leftstat[key]|e }}<dt>
+						{% endfor %}
+					</dl>
+				</div>
+				<button type='submit' id='left_button' name='clicked' value='left'>
+					<img src='{{image_left_source}}' />
+				</button>
+			</td>
+			<td class='middle_col'>
+				OR
+				<button type='submit' id='middle_button' name='clicked' value='middle'>
+					EGAL
+				</button>
+			</td>
+			<td class='right_col'>
+				<div class='stats'>
+					<dl>
+						{% for key in statkeys %}
+						<dt>{{ key|e }}</dt>
+						<dd>{{ rightstat[key]|e }}<dt>
+						{% endfor %}
+					</dl>
+				</div>
+				<button type='submit' id='right_button' name='clicked' value='right'>
+					<img src='{{image_left_source}}' />
+				</button>
+			</td>
+		</tr>
+	</table>
+
+
+</form>
+{% endblock %}
+

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+{% block head %}
+<title>{% block title %}{% endblock %} —  The Supermarkt Quiz</title>
+<link rel='stylesheet' href='/static/bootstrap/css/bootstrap.css' />
+<style>
+main {
+	width: 800px;
+	margin: 1em auto 1em auto;
+	background-color: white;
+	padding: 2em;
+	border-radius: 1em;
+	border: solid 1px #ccc;
+	box-shadow: 0px 0px 3px #CCC;
+}
+body {
+	background-color: #ff6600;
+}
+
+#question_table td{
+	vertical-align: middle;
+}
+.stats dt {
+	float: left;
+	width: 40%;
+}
+.stats dl {
+	float: right;
+	width: 50%;
+}
+.stats:after {
+	content: '.';
+	visibility: hidden;
+	clear: both;
+}
+.stats dl {
+	width: 100%;
+}
+</style>
+
+{% endblock %}
+</head>
+
+<body>
+{{ pages_served }}
+<header>
+	{% block header %}
+
+	{% endblock %}
+</header>
+
+<main>
+	{% block content %}
+	{% endblock %} 
+</main>
+
+<footer>
+	{% block footer %}
+
+	{% endblock %} 
+</footer>
+
