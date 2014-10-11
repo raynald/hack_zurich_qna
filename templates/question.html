@@ -9,11 +9,16 @@
 			border-spacing: 10px;
 			border-collapse: separate;
 		}
+                .left_col, .right_col, .middle_col {
+                    width: 33%;
+                }
 		.left_col button {
 			float: left;
+			font-size: 300%;
 		}
 		.right_col button {
 			float: right;
+			font-size: 300%;
 		}
 		.middle_col {
 			font-size: 300%;
@@ -51,13 +56,13 @@
 					</dl>
 				</div>
 				<button type='submit' id='left_button' name='clicked' value='left'>
+                                  Prefer this<br/>
 					<img src='{{image_left_source}}' />
 				</button>
 			</td>
 			<td class='middle_col'>
-				OR
 				<button type='submit' id='middle_button' name='clicked' value='middle'>
-					EGAL
+                                  mir egal
 				</button>
 			</td>
 			<td class='right_col'>
@@ -81,6 +86,7 @@
 					</dl>
 				</div>
 				<button type='submit' id='right_button' name='clicked' value='right'>
+                                  Prefer that<br/>
 					<img src='{{image_right_source}}' />
 				</button>
 			</td>
