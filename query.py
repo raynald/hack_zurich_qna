@@ -5,19 +5,18 @@ import random
 
 base_url = "http://api.autoidlabs.ch"
 
-
 def load(y,x):
     iurl = '%s/%s/%s' % (base_url, y, x)
-    print iurl
     f = ur.urlopen(iurl)
     data = f.read()
-    return data
+    return json.loads(data)
 
 OneArg = lambda y:  lambda x: load(y, x)
 
 ProductsRating = OneArg('rating')
 ProductsLikes = OneArg('likes')
 ProductsArticles = OneArg('prodarticles')
+CategoriesInfo = OneArg('categories')
 ArticlesDetail = OneArg('articles')
 
 
@@ -65,25 +64,18 @@ def AllCategories():
     cateout = json.loads(f.read())
     return cateout
 
+def AllLeaves(cat):
+    if 'catMbrs' not in cat:
+        yield cat
+    else:
+        for subcat in cat['catMbrs']:
+            for mbrs in AllLeaves(subcat):
+                yield mbrs
+
+
 def AllLeafCategories():
     all_cat = AllCategories()
-
-    def AllLeaves(cat):
-        if 'catMbrs' not in cat:
-            yield cat
-        else:
-            for subcat in cat['catMbrs']:
-                for mbrs in AllLeaves(subcat):
-                    yield mbrs
-
     return AllLeaves(all_cat)
-
-def Categories_info(category_id):
-    #category_id = "22415"
-    categoryinfo_url = base_url + "/categories/" + category_id
-    f = ur.urlopen(categoryinfo_url)
-    cateout = json.loads(f.read())
-    return cateout
 
 def Brands():
     brands_url = base_url + "/brands?search="

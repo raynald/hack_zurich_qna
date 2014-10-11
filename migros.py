@@ -1,6 +1,7 @@
 import json
 import query as qy
 import random
+import numpy as np
 
 def RandNumGen(x, y):
     return random.randint(x, y-1)
@@ -10,7 +11,64 @@ def SelectRandomUser(whole):
     return rand_id
 
 def GenerateQuestions(user):
-	return range(1,16)
+    pdttypes = list(coll.distinct('lowest_category'))
+    perm = iter(np.random.permutation(pdttypes))
+
+    schweizs = []
+    bios = []
+    umwelt = []
+    gesundheit = []
+
+    ## Multiple countries
+    while True:
+        subtit = next(perm)
+        num = coll.find( {
+            'lowest_category': subtit,
+            'organic': True,
+        }).count()
+        if len(bios) < 5 and coll.find( {
+            'lowest_category': subtit,
+            'organic': {'$exists': True},
+        }).count() > num and num > 0:
+            bios.append(subtit)
+            continue
+
+        num = coll.find( {
+            'lowest_category': subtit,
+            'country': 'CH',
+        }).count()
+        if len(schweizs) < 5 and coll.find( {
+            'lowest_category': subtit,
+            'country': {'$exists': True},
+        }).count() > num and num > 0:
+            schweizs.append(subtit)
+            continue
+        
+        num = coll.find( {
+            'lowest_category': subtit,
+            'environment': {'$gte': 0.5},
+        }).count()
+        if len(umwelt) < 5 and coll.find( {
+            'lowest_category': subtit,
+            'environment': {'$exists': True},
+        }).count() > num and num > 0:
+            umwelt.append(subtit)
+            continue
+        
+        num = coll.find( {
+            'lowest_category': subtit,
+            'health': {'$gte': 7},
+        }).count()
+        if len(gesundheit) < 5 and coll.find( {
+            'lowest_category': subtit,
+            'health': {'$exists': True},
+        }).count() > num and num > 0:
+            gesundheit.append(subtit)
+            continue
+        
+        if len(gesundheit) >= 5 and len(umwelt) >= 5  \
+            and len(schweizs) >= 5 and len(bios) >= 5:
+            break
 
 def SavePreferences(user, question_list, answers):
 	pass
@@ -26,7 +84,7 @@ if __name__ == "__main__":
     alle_cate = qy.AllLeafCategories()
     #print json.dumps(list(alle_cate), indent=2)
 
-    print json.dumps(qy.Categories_info("1262306"),indent=2)
+    print json.dumps(qy.CategoriesInfo("1262306"),indent=2)
     """
     trans_history = qy.transaction(user_id)
     #print json.dumps(trans_history, indent=2)
