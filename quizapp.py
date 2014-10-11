@@ -99,8 +99,7 @@ def results():
             'adjective': 'generous',
             'description': """Dame it, You are such a rich man. Go for Tesla S
                 """,
-            'image': '/static/images/Buffett.png',
-            },
+            'image': '/static/images/buffett.jpg',
             },
 
             {
@@ -115,7 +114,7 @@ def results():
             'adjective': 'Auslander!',
             'description': u""" 你係外国人来咯，唔晒埋瑞士货架!
                 """,
-            'image': '/static/images/flag_switzerland.svg',
+            'image': '/static/images/eu.jpg',
             },
 
             {
@@ -124,6 +123,13 @@ def results():
             auch wenn die Ausländische Produkte günstiger sind.
                 """,
             'image': '/static/images/flag_switzerland.svg',
+            },
+
+            {
+            'adjective': 'Du bist ein Treehugger',
+            'description': u"""環境変化を気にしてツリーを抱きしめに外にアクセスしてください
+                """,
+            'image': '/static/images/treehugger.gif',
             },
 
             {
@@ -136,7 +142,6 @@ def results():
                 """,
             'image': '/static/images/Igloo_landscape.svg',
             },
-
             ]
         }
 

@@ -168,25 +168,25 @@ def PersonalityTest(question_list, answers):
     op_totalswiss = 0
     totalenvironment = 0
     op_totalenvironment = 0
-    x[0]=x[1]=x[2]=x[3]=0;
+    x = [0] * 4
 
     for i in range(0,15,1):
-        if answer[i] != -1:
-            totalhealth += int(question_list[i][answer[i]]['health'])
-            op_totalhealth += int(question_list[i][1 - answer[i]]['health'])
-            totalswiss += int(question_list[i][answer[i]]['country']=='CH')
-            op_totalswiss += int(question_list[i][1 - answer[i]]['country']='CH')
-            totalorganic += int(question_list[i][answer[i]]['organic'] == True)
-            op_totalorganic += int(question_list[i][1 - answer[i]]['organic'] == True)
-            totalenvironment += int(question_list[i][answer[i]]['environment'])
-            op_totalenvironment += int(question_list[i][1 - answer[i]]['environment'])
-    if (totalhealth > op_totalhealth)
+        if answers[i] != -1:
+            totalhealth += int(question_list[i][answers[i]]['health'])
+            op_totalhealth += int(question_list[i][1 - answers[i]]['health'])
+            totalswiss += int(question_list[i][answers[i]]['country']=='CH')
+            op_totalswiss += int(question_list[i][1 - answers[i]]['country']=='CH')
+            totalorganic += int(question_list[i][answers[i]]['organic'] == True)
+            op_totalorganic += int(question_list[i][1 - answers[i]]['organic'] == True)
+            totalenvironment += int(question_list[i][answers[i]]['environment'])
+            op_totalenvironment += int(question_list[i][1 - answers[i]]['environment'])
+    if totalhealth > op_totalhealth:
         x[0] = 1
-    if (totalswiss > op_totalswiss)
+    if totalswiss > op_totalswiss:
         x[1] = 1
-    if (totalorganic > op_totalorganic)
+    if totalorganic > op_totalorganic:
         x[2] = 1
-    if (totalenvironment > op_totalenvironment)
+    if totalenvironment > op_totalenvironment:
         x[3] = 1
     return x
 
