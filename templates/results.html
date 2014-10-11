@@ -13,7 +13,11 @@ main .btn{
 }
 
 .personality {
-	padding: 3em;
+	padding: 2em;
+}
+
+.personality p {
+	margin: 0 220px 0 80px;
 }
 
 .numbered {
@@ -23,26 +27,57 @@ main .btn{
 	color: #999;
 	position: relative;
 	top: -0.4em;
-	margin-right: 0.5em;
+	width: 80px;
 }
 	</style>
 {% endblock %}
 
 {% block content %}
+<!-- setup code for share buttons -->
+<!-- faceboook -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+		  fjs.parentNode.insertBefore(js, fjs);
+		  }(document, 'script', 'facebook-jssdk'));</script>
+
 <h1>Your personality</h1>
 
 	{% for i, category in enumerate(personality, 1) %}
 	<section class='personality'>
 		<span class='numbered'>{{ i }} </span>
 		<img src='{{category['image']}}' class='flright' />
-		<h2>You are {{ category['adjective']|e }}</h2>
+		<h2>You are {{ category['adjective'] }}</h2>
 		<p>
-		{{category['description']|e}}
+		{{category['description']}}
 		</p>
 		<br clear='both'>
 	</section>
 		<hr/>
 	{% endfor %}
+
+<p align='center'>
+<a href='/quiz' class='btn btn-primary'>Try Again</a>
+<div id='sharebar'>
+	<!-- pinit -->
+	<a href="//www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fkentbrew%2F6851755809%2F&media=http%3A%2F%2Ffarm8.staticflickr.com%2F7027%2F6851755809_df5b2051c9_z.jpg&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="above" data-pin-color="red" data-pin-height="28"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_28.png" /></a>
+	<!-- Please call pinit.js only once per page -->
+	<script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+	<!-- google plus -->
+	  <script src="https://apis.google.com/js/platform.js" async defer></script>
+	  <g:plusone></g:plusone>
+	<!-- twitter -->
+	<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+
+	<!--facebook-->
+	<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+</p>
 
 {% endblock %}
 
