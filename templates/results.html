@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block head %}
+	{{ super() }}
+	<style>
+main .btn{
+	font-size: 200%;
+}
+
+.personality img {
+	width: 200px;
+	height: auto;
+	margin: 0 3em 0 3em;
+}
+
+.personality {
+	padding: 3em;
+}
+
+.numbered {
+	font-size: 600%;
+	font-weight: bold;
+	float: left;
+	color: #999;
+	position: relative;
+	top: -0.4em;
+	margin-right: 0.5em;
+}
+	</style>
+{% endblock %}
+
+{% block content %}
+<h1>Your personality</h1>
+
+	{% for i, category in enumerate(personality, 1) %}
+	<section class='personality'>
+		<span class='numbered'>{{ i }} </span>
+		<img src='{{category['image']}}' class='flright' />
+		<h2>You are {{ category['adjective']|e }}</h2>
+		<p>
+		{{category['description']|e}}
+		</p>
+		<br clear='both'>
+	</section>
+		<hr/>
+	{% endfor %}
+
+{% endblock %}
+
+

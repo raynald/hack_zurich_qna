@@ -2,8 +2,12 @@
 {% block head %}
 	{{ super() }}
 	<style>
+		#question_table td {
+		}
 		#question_table {
 			width: 100%;
+			border-spacing: 10px;
+			border-collapse: separate;
 		}
 		.left_col button {
 			float: left;
@@ -23,6 +27,7 @@
 {% block content %}
 <h2>Question {{question_num|e}} of {{total_questions}}</h2>
 <form action='{{form_action}}' method='GET'>
+	<input type='hidden' name='question_num' value='{{question_num}}'/>
 	<table id='question_table'>
 		<tr>
 			<td class='left_col'>
