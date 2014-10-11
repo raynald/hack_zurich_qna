@@ -1,56 +1,56 @@
 import urllib as ur
 import json
+import sys
+import random
 
-base_url = "http://api.autoidlabs.ch/"
-
-def printout(func):
-    print(func.read())
+base_url = "http://api.autoidlabs.ch"
 
 def Products():
     #Product Info
-    product_ean = "7610200243430"
-    n = "1"
-    #productinfo_url = base_url + "products/" + product_ean + "?n=" + n
-    #f = ur.urlopen(productinfo_url)
-    #printout(f)
+    product_ean = "7617027539036"
+    n = "0"
+    productinfo_url = '%s/products/%s?n=%s' % (base_url,  product_ean, n)
+    f = ur.urlopen(productinfo_url)
+    productout = json.loads(f.read())
+    print(productout)
 
-    #Likes
-    likes_url = base_url + "likes/" + product_ean
+    #Likes: how many people like this produt
+    likes_url = base_url + "/likes/" + product_ean
     f = ur.urlopen(likes_url)
-    printout(f)
+    print(f.read())
 
     #Rating
-    rating_url = base_url + "rating/" + product_ean
+    rating_url = base_url + "/rating/" + product_ean
     f = ur.urlopen(rating_url)
-    printout(f)
+    print(f.read())
 
     #Availability
     store_id = "0150116"
-    avail_url = base_url + "availability/" + product_ean + "?store_id=" + store_id
+    avail_url = base_url + "/availability/" + product_ean + "?store_id=" + store_id
     f = ur.urlopen(avail_url)
-    printout(f)
+    print(f.read())
 
     #Product Articles
-    prodarticles_url = base_url + "prodarticles/" + product_ean
+    prodarticles_url = base_url + "/prodarticles/" + product_ean
     f = ur.urlopen(prodarticles_url)
-    printout(f)
+    print(f.read())
 
     #Article Details
     article_id = "10000"
-    article_url = base_url + "articles/" + article_id
+    article_url = base_url + "/articles/" + article_id
     f = ur.urlopen(article_url)
-    printout(f)
+    print(f.read())
 
     #Discounts
-    discounts_url = base_url + "discounts"
+    discounts_url = base_url + "/discounts"
     f = ur.urlopen(discounts_url)
-    printout(f)
+    print(f.read())
 
     #Search
-    text = "water"
-    search_url = base_url + "search?text=" + text
+    text = "wasser"
+    search_url = base_url + "/search?text=" + text
     f = ur.urlopen(search_url)
-    printout(f)
+    print(f.read())
 
 def Categories():
     #categories_url = base_url + "categories"
@@ -62,7 +62,7 @@ def Categories():
     printout(f)
 
 def Brands():
-    brands_url = base_url + "brands?search="
+    brands_url = base_url + "/brands?search="
     brands_product_url = base_url + "/brandproducts/"
     term = "Lindt"
     #f = ur.urlopen(brands_url + "{" + term + "}")
@@ -70,18 +70,29 @@ def Brands():
     f = ur.urlopen(brands_product_url + brand_id )
     print(f.read())
 
-def PoS():
-    cusid_url = base_url + "customerids"
+def transaction(customer_id):
+"""
+Example:
+u'quantNorm': 1, u'pricePerUnit': 0.99, u'migrosEan': u'7617027659239', u'receiptId': u'1714034704', u'id': 106, u'rDate': u'2014-10-01T00:00Z', u'custId': 115883, u'price': 0.99}, {u'quantNorm': 1, u'pricePerUnit': 2.19, u'migrosEan': u'7613269310006', u'receiptId': u'1718833507', u'id': 3629, u'rDate': u'2014-10-05T00:00Z', u'custId': 115883, u'price': 2.19}
+"""
+    #customer_id = "115883"
+    posdata_url = '%s/pos/%s' % (base_url, customer_id)
+    f = ur.urlopen(posdata_url)
+    posout = json.loads(f.read())
+    return posout
+
+
+def all_customer_id():
+    cusid_url = '%s/customerids' % base_url
     f = ur.urlopen(cusid_url)
     cus_return = f.read()
-    customer_ids = cus_return[1:-1].split(',')
+    return cus_return[1:-1].split(',')
 
 def main():
-    #Products()
-    Categories()
+    Products()
+    #Categories()
     #Brands()
     #PoS()
 
-
 if __name__ == "__main__":
-    main()
+    pass
