@@ -23,6 +23,11 @@ if __name__ == "__main__":
     rand_id = SelectRandomUser(len(customer_ids))
     user_id = customer_ids[rand_id]
     print "user_id:", user_id
+    alle_cate = qy.AllLeafCategories()
+    #print json.dumps(list(alle_cate), indent=2)
+
+    print json.dumps(qy.Categories_info("1262306"),indent=2)
+    """
     trans_history = qy.transaction(user_id)
     #print json.dumps(trans_history, indent=2)
     prod1 = RandNumGen(0, len(trans_history))
@@ -32,4 +37,5 @@ if __name__ == "__main__":
     prod1_info = prod1_infoful['catPath']
     print prod1_info
     print prod1_info[len(prod_info)-1]
+    """
 

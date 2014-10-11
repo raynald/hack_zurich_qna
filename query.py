@@ -5,6 +5,22 @@ import random
 
 base_url = "http://api.autoidlabs.ch"
 
+
+def load(y,x):
+    iurl = '%s/%s/%s' % (base_url, y, x)
+    print iurl
+    f = ur.urlopen(iurl)
+    data = f.read()
+    return data
+
+OneArg = lambda y:  lambda x: load(y, x)
+
+ProductsRating = OneArg('rating')
+ProductsLikes = OneArg('likes')
+ProductsArticles = OneArg('prodarticles')
+ArticlesDetail = OneArg('articles')
+
+
 def ProductsInfo(product_ean, n):
     """
         Product Info
@@ -16,22 +32,6 @@ def ProductsInfo(product_ean, n):
     productout = json.loads(f.read())
     return productout
 
-def ProductsLike():
-    """
-    Likes: how many people like this produt
-    """
-    likes_url = base_url + "/likes/" + product_ean
-    f = ur.urlopen(likes_url)
-    print(f.read())
-
-def ProductsRating():
-    """
-    Rating
-    """
-    rating_url = base_url + "/rating/" + product_ean
-    f = ur.urlopen(rating_url)
-    print(f.read())
-
 def ProductsAvail():
     #Availability
     store_id = "0150116"
@@ -39,16 +39,10 @@ def ProductsAvail():
     f = ur.urlopen(avail_url)
     print(f.read())
 
-def ProductsArticles():
-    #Product Articles
-    prodarticles_url = base_url + "/prodarticles/" + product_ean
-    f = ur.urlopen(prodarticles_url)
-    print(f.read())
-
-def ProductsDetails():
+def ProductsDetails(article_id):
     #Article Details
-    article_id = "10000"
-    article_url = base_url + "/articles/" + article_id
+    #article_id = "10000"
+    article_url = base_url + "/articles/" + str(article_id)
     f = ur.urlopen(article_url)
     print(f.read())
 
@@ -65,14 +59,31 @@ def ProductsSearch():
     f = ur.urlopen(search_url)
     print(f.read())
 
-def Categories():
-    #categories_url = base_url + "categories"
-    #f = ur.urlopen(categories_url)
-    #printout(f)
-    category_id = "22415"
+def AllCategories():
+    categories_url = base_url + "/categories"
+    f = ur.urlopen(categories_url)
+    cateout = json.loads(f.read())
+    return cateout
+
+def AllLeafCategories():
+    all_cat = AllCategories()
+
+    def AllLeaves(cat):
+        if 'catMbrs' not in cat:
+            yield cat
+        else:
+            for subcat in cat['catMbrs']:
+                for mbrs in AllLeaves(subcat):
+                    yield mbrs
+
+    return AllLeaves(all_cat)
+
+def Categories_info(category_id):
+    #category_id = "22415"
     categoryinfo_url = base_url + "/categories/" + category_id
     f = ur.urlopen(categoryinfo_url)
-    printout(f)
+    cateout = json.loads(f.read())
+    return cateout
 
 def Brands():
     brands_url = base_url + "/brands?search="
