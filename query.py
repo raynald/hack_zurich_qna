@@ -5,47 +5,60 @@ import random
 
 base_url = "http://api.autoidlabs.ch"
 
-def Products():
-    #Product Info
-    product_ean = "7617027539036"
-    n = "0"
+def ProductsInfo(product_ean, n):
+    """
+        Product Info
+        product_ean = "7617027539036"
+        n = "0"
+    """
     productinfo_url = '%s/products/%s?n=%s' % (base_url,  product_ean, n)
     f = ur.urlopen(productinfo_url)
     productout = json.loads(f.read())
-    print(productout)
+    return productout
 
-    #Likes: how many people like this produt
+def ProductsLike():
+    """
+    Likes: how many people like this produt
+    """
     likes_url = base_url + "/likes/" + product_ean
     f = ur.urlopen(likes_url)
     print(f.read())
 
-    #Rating
+def ProductsRating():
+    """
+    Rating
+    """
     rating_url = base_url + "/rating/" + product_ean
     f = ur.urlopen(rating_url)
     print(f.read())
 
+def ProductsAvail():
     #Availability
     store_id = "0150116"
     avail_url = base_url + "/availability/" + product_ean + "?store_id=" + store_id
     f = ur.urlopen(avail_url)
     print(f.read())
 
+def ProductsArticles():
     #Product Articles
     prodarticles_url = base_url + "/prodarticles/" + product_ean
     f = ur.urlopen(prodarticles_url)
     print(f.read())
 
+def ProductsDetails():
     #Article Details
     article_id = "10000"
     article_url = base_url + "/articles/" + article_id
     f = ur.urlopen(article_url)
     print(f.read())
 
+def ProductsDiscounts():
     #Discounts
     discounts_url = base_url + "/discounts"
     f = ur.urlopen(discounts_url)
     print(f.read())
 
+def ProductsSearch():
     #Search
     text = "wasser"
     search_url = base_url + "/search?text=" + text
@@ -71,10 +84,10 @@ def Brands():
     print(f.read())
 
 def transaction(customer_id):
-"""
-Example:
-u'quantNorm': 1, u'pricePerUnit': 0.99, u'migrosEan': u'7617027659239', u'receiptId': u'1714034704', u'id': 106, u'rDate': u'2014-10-01T00:00Z', u'custId': 115883, u'price': 0.99}, {u'quantNorm': 1, u'pricePerUnit': 2.19, u'migrosEan': u'7613269310006', u'receiptId': u'1718833507', u'id': 3629, u'rDate': u'2014-10-05T00:00Z', u'custId': 115883, u'price': 2.19}
-"""
+    """
+    Example:
+    u'quantNorm': 1, u'pricePerUnit': 0.99, u'migrosEan': u'7617027659239', u'receiptId': u'1714034704', u'id': 106, u'rDate': u'2014-10-01T00:00Z', u'custId': 115883, u'price': 0.99}, {u'quantNorm': 1, u'pricePerUnit': 2.19, u'migrosEan': u'7613269310006', u'receiptId': u'1718833507', u'id': 3629, u'rDate': u'2014-10-05T00:00Z', u'custId': 115883, u'price': 2.19}
+    """
     #customer_id = "115883"
     posdata_url = '%s/pos/%s' % (base_url, customer_id)
     f = ur.urlopen(posdata_url)
