@@ -160,7 +160,35 @@ def SavePreferences(user, question_list, answers):
 	pass
 
 def PersonalityTest(question_list, answers):
-	pass
+    totalhealth = 0
+    op_totalhealth = 0
+    totalorganic = 0
+    op_totalorganic = 0
+    totalswiss = 0
+    op_totalswiss = 0
+    totalenvironment = 0
+    op_totalenvironment = 0
+    x[0]=x[1]=x[2]=x[3]=0;
+
+    for i in range(0,15,1):
+        if answer[i] != -1:
+            totalhealth += int(question_list[i][answer[i]]['health'])
+            op_totalhealth += int(question_list[i][1 - answer[i]]['health'])
+            totalswiss += int(question_list[i][answer[i]]['country']=='CH')
+            op_totalswiss += int(question_list[i][1 - answer[i]]['country']='CH')
+            totalorganic += int(question_list[i][answer[i]]['organic'] == True)
+            op_totalorganic += int(question_list[i][1 - answer[i]]['organic'] == True)
+            totalenvironment += int(question_list[i][answer[i]]['environment'])
+            op_totalenvironment += int(question_list[i][1 - answer[i]]['environment'])
+    if (totalhealth > op_totalhealth)
+        x[0] = 1
+    if (totalswiss > op_totalswiss)
+        x[1] = 1
+    if (totalorganic > op_totalorganic)
+        x[2] = 1
+    if (totalenvironment > op_totalenvironment)
+        x[3] = 1
+    return x
 
 if __name__ == "__main__":
     customer_ids = qy.all_customer_id()

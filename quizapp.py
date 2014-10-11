@@ -40,11 +40,11 @@ def question(step):
         qn_num = int(request.args['question_num'])
         if qn_num >= 1 and qn_num <= len(session['question_list']):
             if request.args['clicked'] == 'left':
-                session['answers'][qn_num - 1] = -1
+                session['answers'][qn_num - 1] = 0
             elif request.args['clicked'] == 'right':
                 session['answers'][qn_num - 1] = 1
             else:
-                session['answers'][qn_num - 1] = 0
+                session['answers'][qn_num - 1] = -1
 
     total_questions = len(flask.session['question_list'])
     country_flag_map = {
@@ -90,17 +90,32 @@ def results():
 
     user = None
     migros.SavePreferences( user, session['question_list'], session['answers'] )
-    migros.PersonalityTest( session['question_list'], session['answers'] )
+    Pers_result = migros.PersonalityTest( session['question_list'], session['answers'] )
 
     args = {
         'enumerate': enumerate,
         'personality': [
+            {
+            'adjective': 'generous',
+            'description': """Dame it, You are such a rich man. Go for Tesla S
+                """,
+            'image': '/static/images/Buffett.png',
+            },
+            },
+
             {
             'adjective': 'miserly',
             'description': """You would never spend on non-Migros Budget
                 products if you had a choice.
                 """,
             'image': '/static/images/poorkids.png',
+            },
+
+            {
+            'adjective': 'Auslander!',
+            'description': u""" 你係外国人来咯，唔晒埋瑞士货架!
+                """,
+            'image': '/static/images/flag_switzerland.svg',
             },
 
             {
