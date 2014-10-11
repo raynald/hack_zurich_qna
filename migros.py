@@ -168,7 +168,7 @@ def PersonalityTest(question_list, answers):
     op_totalswiss = 0
     totalenvironment = 0
     op_totalenvironment = 0
-    x = [0] * 4
+    x = [False] * 4
 
     for i in range(0,15,1):
         if answers[i] != -1:
@@ -181,13 +181,13 @@ def PersonalityTest(question_list, answers):
             totalenvironment += int(question_list[i][answers[i]]['environment'])
             op_totalenvironment += int(question_list[i][1 - answers[i]]['environment'])
     if totalhealth > op_totalhealth:
-        x[0] = 1
+        x[0] = True
     if totalswiss > op_totalswiss:
-        x[1] = 1
+        x[1] = True
     if totalorganic > op_totalorganic:
-        x[2] = 1
+        x[2] = True
     if totalenvironment > op_totalenvironment:
-        x[3] = 1
+        x[3] = True
     return x
 
 if __name__ == "__main__":
