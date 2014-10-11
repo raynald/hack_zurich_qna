@@ -32,7 +32,18 @@
 		<tr>
 			<td class='left_col'>
 				<div class='stats'>
+                    {{leftname|e}}
 					<dl>
+                        <img src='{{leftcountry}}' style='height:16px;width:auto'>
+                        {% if lefthealth >= 7 %}
+                        <img src='/static/images/health.jpg' style='height:16px;width:auto'>
+                        {% endif %}
+                        {% if leftorganic %}
+                        <img src='/static/images/bio.jpg' style='height:16px;width:auto'>
+                        {% endif %}
+                        {% if leftenvironment > 0.5 %}
+                        <img src='/static/images/eco.gif' style='height:16px;width:auto'>
+                        {% endif %}
 						{% for key in statkeys %}
 						<dt>{{ key|e }}</dt>
 						<dd>{{ leftstat[key]|e }}<dt>
@@ -51,7 +62,18 @@
 			</td>
 			<td class='right_col'>
 				<div class='stats'>
+                    {{rightname|e}}
 					<dl>
+                        <img src='{{rightcountry}}' style='height:16px;width:auto'>
+                        {% if righthealth >= 7 %}
+                        <img src='/static/images/health.jpg' style='height:16px;width:auto'>
+                        {% endif %}
+                        {% if rightorganic %}
+                        <img src='/static/images/bio.jpg' style='height:16px;width:auto'>
+                        {% endif %}
+                        {% if rightenvironment > 0.5 %}
+                        <img src='/static/images/eco.gif' style='height:16px;width:auto'>
+                        {% endif %}
 						{% for key in statkeys %}
 						<dt>{{ key|e }}</dt>
 						<dd>{{ rightstat[key]|e }}<dt>
@@ -59,7 +81,7 @@
 					</dl>
 				</div>
 				<button type='submit' id='right_button' name='clicked' value='right'>
-					<img src='{{image_left_source}}' />
+					<img src='{{image_right_source}}' />
 				</button>
 			</td>
 		</tr>
